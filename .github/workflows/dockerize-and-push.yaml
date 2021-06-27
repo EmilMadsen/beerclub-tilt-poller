@@ -29,7 +29,7 @@ jobs:
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           IMAGE_TAG: ${{ github.sha }}
-          SERVICE: 'beerhub-tilt-poller'
+          SERVICE: 'beerclub-tilt-poller'
         run: |
           docker build -t $DOCKERHUB_USERNAME/$SERVICE:$IMAGE_TAG -t $DOCKERHUB_USERNAME/$SERVICE:latest .
           docker push $DOCKERHUB_USERNAME/$SERVICE:$IMAGE_TAG
