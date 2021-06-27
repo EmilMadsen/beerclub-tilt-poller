@@ -23,7 +23,7 @@ public class TiltServiceTests {
 
         assertEquals(2086, logs.size());
         assertEquals("123_1623580738", logs.get(2).getId());
-        assertEquals(123L, logs.get(2).getParent_id());
+        assertEquals(123L, logs.get(2).getParentId());
         assertEquals("2021-06-13T12:38:58+02:00[Europe/Copenhagen]", logs.get(2).getTimestamp().toString());
         assertEquals(1012, logs.get(2).getGravity());
         assertEquals(20.0, logs.get(2).getTemperature());
