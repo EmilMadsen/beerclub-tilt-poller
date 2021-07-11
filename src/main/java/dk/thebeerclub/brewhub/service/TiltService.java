@@ -3,14 +3,9 @@ package dk.thebeerclub.brewhub.service;
 import dk.thebeerclub.brewhub.model.Brew;
 import dk.thebeerclub.brewhub.model.TiltLog;
 import dk.thebeerclub.brewhub.repository.TiltLogRepository;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,8 +28,13 @@ public class TiltService {
     private final static String SLASH = "/";
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("M/d/yyyy H:mm:ss").withZone(ZoneId.of("Europe/Copenhagen"));
 
-    @Autowired private TiltLogRepository tiltLogRepository;
-    @Autowired private BrewService brewService;
+    private final TiltLogRepository tiltLogRepository;
+    private final BrewService brewService;
+
+    public TiltService(TiltLogRepository tiltLogRepository, BrewService brewService) {
+        this.tiltLogRepository = tiltLogRepository;
+        this.brewService = brewService;
+    }
 
     public void updateAllBrews() {
         List<Brew> brews = brewService.findAllWithTiltUrl();
