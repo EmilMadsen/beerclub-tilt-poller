@@ -20,4 +20,10 @@ public class ScheduledJob {
         log.info("starting scheduled tilt job.");
         tiltService.updateAllBrews();
     }
+
+    @Scheduled(cron = "0 0 9 * * *", zone = "Europe/Paris")
+    public void notifyDiscord() {
+        log.info("notifyDiscord");
+        tiltService.notifyDiscord();
+    }
 }

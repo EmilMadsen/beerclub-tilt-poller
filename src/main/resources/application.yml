@@ -7,3 +7,7 @@ spring:
     password: password
   jpa:
     database: POSTGRESQL
+
+discord:
+  webhook:
+    url: env-variable

@@ -36,5 +36,10 @@ public class TiltController {
         discordService.sendMessage("test message 123");
     }
 
+    @GetMapping("/test/notify")
+    public void notifyDiscord() {
+        tiltService.notifyDiscord();
+    }
+
 
 }

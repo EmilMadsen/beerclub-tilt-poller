@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TiltServiceTests {
 
-    private TiltService tiltService = new TiltService(null, null);
+    private TiltService tiltService = new TiltService(null, null, null);
 
     @Test
     public void parse_csv() throws FileNotFoundException {
