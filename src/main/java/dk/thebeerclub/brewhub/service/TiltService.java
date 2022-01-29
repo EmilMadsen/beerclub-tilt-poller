@@ -149,20 +149,21 @@ public class TiltService {
             if (null == brew.getTiltEnded()) {
                 Optional<TiltLog> latest = tiltLogRepository.findTop1ByParentIdOrderByTimestampDesc(brew.getId());
                 if (latest.isPresent()) {
-
                     TiltLog tiltLog = latest.get();
-                    String message = String.format("Latest tilt log - Brew: %s - Timestamp: %s - Temp: %s - Gravity: %s", brew.getBrewName(), tiltLog.getTimestamp(), tiltLog.getTemperature(), tiltLog.getGravity());
 
-                    try {
-                        log.info("sending discord msg: [{}]", message);
-                        discordService.sendMessage(message);
-                    } catch (IOException e) {
-                        log.error("failed sending discord message - error: {}", e.getMessage());
+                    if (tiltLog.getTimestamp().isAfter(ZonedDateTime.now().minusDays(2))) {
+                        try {
+                            String message = String.format("Latest tilt log - Brew: %s - Timestamp: %s - Temp: %s - Gravity: %s", brew.getBrewName(), tiltLog.getTimestamp(), tiltLog.getTemperature(), tiltLog.getGravity());
+                            log.info("sending discord msg: [{}]", message);
+                            discordService.sendMessage(message);
+                        } catch (IOException e) {
+                            log.error("failed sending discord message - error: {}", e.getMessage());
+                        }
+                    } else {
+                        log.info("latest TiltLog is too old: {}. skipping discord notification.", tiltLog.getTimestamp());
                     }
                 }
             }
         }
-
-
     }
 }
